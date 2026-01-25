@@ -6,50 +6,7 @@ import {
   FiCalendar,
   FiAward,
 } from "react-icons/fi"
-
-import spotcareLogo from "../assets/logos/spotcareLogo.png"
-import evogeniousLogo from "../assets/logos/evogeniousLogo.jpeg"
-
-const experiences = [
-  {
-    title: "Software Developer",
-    company: "Evogenious Tech",
-    location: "Remote",
-    period: "Dec 2025 – Present",
-    achievements: [
-      "Built and deployed a Python-based log analysis system on AWS Lambda, automating monthly user reports using Terraform-managed infrastructure.",
-      "Deployed a containerized service to dev using Docker, setting up a CI/CD pipeline to enable automated builds, testing, and deployments."
-    ],
-    stack: ["AWS", "Docker", "Terraform", "Github Actions", "Python"],
-    logo: evogeniousLogo,
-  },
-  {
-    title: "Software Developer",
-    company: "Spotcare",
-    location: "Remote",
-    period: "Jun 2025 – Nov 2025",
-    achievements: [
-      "Built teleconsultation modules with real-time video, appointments, and patient history; improved workflow efficiency by 40%.",
-      "Developed lab and pharmacy dashboards for test tracking, result management, and medicine dispensing.",
-      "Collaborated with backend, design, and QA teams for integrated product releases.",
-    ],
-    stack: ["Typescript", "Javascript", "Node.js", "Express.js", "MySQL", "React", "Tailwind CSS", "AWS"],
-    logo: spotcareLogo,
-  },
-  {
-    title: "Software Developer Intern",
-    company: "Spotcare",
-    location: "Remote",
-    period: "Dec 2024 – May 2025",
-    achievements: [
-      "Enhanced admin panel with React.js & Node.js, adding real-time dashboards and server monitoring; reduced manual oversight by 50%.",
-      "Developed scalable backend services using Node.js & MySQL with secure APIs and AWS CloudWatch alerts.",
-      "Delivered mobile-first, SEO-optimized landing page increasing engagement by 40%.",
-    ],
-    stack: ["Typescript", "Javascript", "Node.js", "Express.js", "MySQL", "React", "Tailwind CSS"],
-    logo: spotcareLogo,
-  },
-]
+import { experiences } from "../utils/constants"
 
 const Experience = () => {
   const sectionRef = useRef(null)

@@ -11,7 +11,7 @@ function App() {
     <div className="scroll-smooth bg-black">
       <Navbar />
       <div className="relative">
-        <div className="sticky top-0 z-10">
+        <div className="sticky top-0 z-0">
           <Home />
         </div>
         <div className="relative z-20">
@@ -20,7 +20,7 @@ function App() {
       </div>
       <SectionDivider />
       <Experience />
-      {/* <Projects /> */}
+      <Projects />
       {/* <Contact /> */}
     </div>
   )

@@ -7,6 +7,21 @@ const Navbar = () => {
     setIsOpen(!isOpen)
   }
 
+  const handleNavClick = (event, href) => {
+    event.preventDefault()
+    toggleMenu()
+
+    if (href === '#home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+      return
+    }
+
+    const target = document.querySelector(href)
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }
+
   const navItems = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
@@ -46,7 +61,7 @@ const Navbar = () => {
               >
                 <a
                   href={item.href}
-                  onClick={toggleMenu}
+                  onClick={(event) => handleNavClick(event, item.href)}
                   className="text-5xl md:text-7xl font-bold text-gray-800 transition-colors duration-300 inline-block relative group uppercase"
                 >
                   {item.name}
@@ -61,7 +76,12 @@ const Navbar = () => {
         <div className={`mr-16 flex flex-col items-center justify-center transform transition-all duration-800 delay-300 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           <div className='items-start'>
           <p className="text-xs text-gray-400 uppercase tracking-widest mb-2">Email Address</p>
-          <a href="mailto:your.email@example.com" className="text-base text-gray-800 hover:text-gray-600 transition-colors block mb-6">
+          <a
+            href="mailto:your.email@example.com"
+            className="text-base text-gray-800 hover:text-gray-600 transition-colors block mb-6"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             kumbharpradnyaa@example.com
           </a>
           <div className="flex gap-6 text-sm">
