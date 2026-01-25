@@ -17,7 +17,6 @@ import {
   SiJest,
   SiPostman,
   SiJira,
-  SiNodemon,
   SiJavascript,
   SiTypescript,SiReact,SiRedux,SiMongodb,SiPostgresql,SiMysql,SiAmazonwebservices,SiDocker,SiNodedotjs,
   SiExpress,SiNextdotjs,SiTailwindcss,SiSass,SiGit,SiPrisma,SiCplusplus
@@ -87,7 +86,6 @@ const groups = [
       { name: "Postman", Icon: SiPostman, color: "#FF6C37" },
       { name: "Git", Icon: SiGit, color: "#F05032" },
       { name: "Jira", Icon: SiJira, color: "#0052CC" },
-      { name: "Nodemon", Icon: SiNodemon, color: "#76D04B" },
     ],
   },
 ]
@@ -118,25 +116,25 @@ function StackRow({ label, items }) {
   const inView = useInView(ref, { once: true, amount: 0.35 })
 
   return (
-    <div ref={ref} className="grid grid-cols-12 gap-10 lg:gap-14 py-10 lg:py-14">
+    <div ref={ref} className="grid grid-cols-12 gap-8 lg:gap-10 py-8 lg:py-10">
       {/* LEFT TITLE */}
       <motion.h3
         initial={{ opacity: 0, y: 18 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6, ease: "easeOut" }}
-        className="col-span-12 lg:col-span-5 text-[40px] md:text-[60px] font-extrabold tracking-tight text-gray-100/70 leading-tight pr-8"
+        className="col-span-12 lg:col-span-4 text-[32px] md:text-[44px] font-extrabold tracking-tight text-gray-100/70 leading-tight pr-6"
       >
         {label}
       </motion.h3>
 
       {/* RIGHT ICON GRID */}
       <motion.div
-        className="col-span-12 lg:col-span-7"
+        className="col-span-12 lg:col-span-8"
         variants={container}
         initial="hidden"
         animate={inView ? "show" : "hidden"}
       >
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-10">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-8">
           {items.map(({ name, Icon, color }, idx) => (
             <motion.div
               key={name}
@@ -145,7 +143,7 @@ function StackRow({ label, items }) {
             >
               {/* COLORED ICON */}
               <div
-                className="text-3xl md:text-4xl drop-shadow-[0_0_6px_rgba(255,255,255,0.35)]"
+                className="text-2xl md:text-3xl drop-shadow-[0_0_6px_rgba(255,255,255,0.35)]"
                 style={{
                   color,
                   animation: `floatSoft ${6 + (idx % 3)}s ease-in-out infinite`,
@@ -156,7 +154,7 @@ function StackRow({ label, items }) {
               </div>
 
               {/* LABEL */}
-              <p className="text-lg md:text-xl text-gray-100/80">{name}</p>
+              <p className="text-base md:text-lg text-gray-100/80">{name}</p>
             </motion.div>
           ))}
         </div>
@@ -178,12 +176,12 @@ export default function About() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.18)_1px,transparent_1px)] [background-size:26px_26px]" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-0 py-20">
+      <div className="relative max-w-6xl mx-auto px-0 py-16">
         {/* INTRO */}
-        <div className="border-b border-white/10 pb-14">
+        <div className="border-b border-white/10 pb-12">
 
-          <div className="mt-10 grid grid-cols-12 gap-10">
-            <h2 className="col-span-12 lg:col-span-6 text-gray-100/85 text-5xl md:text-7xl font-light">
+          <div className="mt-8 grid grid-cols-12 gap-8">
+            <h2 className="col-span-12 lg:col-span-6 text-gray-100/85 text-4xl md:text-6xl font-light">
               Hi, I&apos;m <span className="text-gray-100">Pradnya.</span>
             </h2>
 
@@ -199,7 +197,7 @@ export default function About() {
         </div>
 
         {/* MY STACK */}
-        <div className="pt-14">
+        <div className="pt-10">
           <div className="flex items-center gap-3 text-gray-100/70 mb-6">
             <span className="text-2xl">✳</span>
             <p className="uppercase tracking-[0.2em] text-sm">Technologies I've worked with</p>

@@ -1,7 +1,7 @@
 import Navbar from './components/Navbar'
 import Home from './components/Home'
 import About from './components/About'
-import WorkExperience from './components/WorkExperience'
+import Experience from './components/Experience'
 import Projects from './components/Projects'
 import Contact from './components/Contact'
 
@@ -17,7 +17,7 @@ function App() {
           <About />
         </div>
       </div>
-      {/* <WorkExperience /> */}
+      <Experience />
       {/* <Projects /> */}
       {/* <Contact /> */}
     </div>
