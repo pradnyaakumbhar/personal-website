@@ -6,7 +6,7 @@ import {
   FaDiscord,
 } from "react-icons/fa6"
 import { FiMail } from "react-icons/fi"
-
+import { links } from "../utils/constants" 
 function CopyButton({
   toCopy,
   className = "",
@@ -24,7 +24,6 @@ function CopyButton({
       if (onCopied) onCopied(copiedText)
       window.setTimeout(() => setCopied(false), 1200)
     } catch (e) {
-      // fallback
       const ta = document.createElement("textarea")
       ta.value = toCopy
       document.body.appendChild(ta)
@@ -53,12 +52,6 @@ function CopyButton({
 export default function Contact() {
   const [toast, setToast] = useState("")
   const toastTimerRef = useRef(null)
-  const links = {
-    github: "https://github.com/pradnyaakumbhar",
-    twitter: "https://twitter.com/",
-    linkedin: "https://www.linkedin.com/in/pradnya-kumbhar/",
-    email: "kumbharpradnyaa10@gmail.com",
-  }
 
   const showToast = (message) => {
     setToast(message)

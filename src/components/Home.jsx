@@ -51,7 +51,7 @@ const Home = () => {
             Hey, I&apos;m Pradnya! 👋
           </h1>
 
-          {/* Animated text – fixed height to prevent layout shift */}
+          {/* Animated text */}
           <p className="text-2xl text-gray-600 mb-12 h-[34px] md:h-[40px] leading-snug">
             {text}
           </p>

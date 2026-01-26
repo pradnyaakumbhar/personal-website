@@ -55,7 +55,7 @@ const Experience = () => {
           {/* BASE STATIC LINE */}
           <div className="absolute left-6 top-0 h-full w-[2px] bg-gray-200" />
 
-          {/* SCROLL TRAIL (dark near dot, fades upward) */}
+          {/* SCROLL TRAIL */}
           <motion.div
             className="absolute left-6 top-0 w-[2px]"
             style={{

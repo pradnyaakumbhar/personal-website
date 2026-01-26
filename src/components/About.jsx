@@ -1,97 +1,6 @@
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
-import {
-  SiHtml5,
-  SiCss3,
-  SiPython,
-  SiGo,
-  SiGnubash,
-  SiReactrouter,
-  SiMui,
-  SiNpm,
-  SiKubernetes,
-  SiTerraform,
-  SiGithubactions,
-  SiJenkins,
-  SiRedis,
-  SiJest,
-  SiPostman,
-  SiJira,
-  SiJavascript,
-  SiTypescript,SiReact,SiRedux,SiMongodb,SiPostgresql,SiMysql,SiAmazonwebservices,SiDocker,SiNodedotjs,
-  SiExpress,SiNextdotjs,SiTailwindcss,SiSass,SiGit,SiPrisma,SiCplusplus
-} from "react-icons/si"
-
-
-/* ================= STACK DATA ================= */
-const groups = [
-  {
-    label: "PROGRAMMING & STYLING",
-    items: [
-      { name: "HTML5", Icon: SiHtml5, color: "#E34F26" },
-      { name: "CSS3", Icon: SiCss3, color: "#1572B6" },
-      { name: "JavaScript", Icon: SiJavascript, color: "#F7DF1E" },
-      { name: "TypeScript", Icon: SiTypescript, color: "#3178C6" },
-      { name: "C++", Icon: SiCplusplus, color: "#00599C" },
-      { name: "Python", Icon: SiPython, color: "#3776AB" },
-      { name: "Go", Icon: SiGo, color: "#00ADD8" },
-      { name: "Shell Script", Icon: SiGnubash, color: "#FFFFFF" },
-    ],
-  },
-  {
-    label: "FRAMEWORKS & LIBRARIES",
-    items: [
-      { name: "React", Icon: SiReact, color: "#61DAFB" },
-      { name: "Next.js", Icon: SiNextdotjs, color: "#E5E7EB" },
-      { name: "Redux", Icon: SiRedux, color: "#764ABC" },
-      { name: "React Router", Icon: SiReactrouter, color: "#CA4245" },
-      { name: "Material UI", Icon: SiMui, color: "#007FFF" },
-      { name: "Tailwind CSS", Icon: SiTailwindcss, color: "#38BDF8" },
-      { name: "SCSS", Icon: SiSass, color: "#CC6699" },
-      { name: "Express.js", Icon: SiExpress, color: "#FFFFFF" },
-      { name: "Node.js", Icon: SiNodedotjs, color: "#3C873A" },
-      { name: "NPM", Icon: SiNpm, color: "#CB3837" },
-    ],
-  },
-  {
-    label: "CLOUD & DEVOPS",
-    items: [
-      { name: "Docker", Icon: SiDocker, color: "#2496ED" },
-      { name: "Kubernetes", Icon: SiKubernetes, color: "#326CE5" },
-      { name: "AWS", Icon: SiAmazonwebservices, color: "#FF9900" },
-      { name: "Terraform", Icon: SiTerraform, color: "#7B42BC" },
-      { name: "GitHub Actions", Icon: SiGithubactions, color: "#FFFFFF" },
-      { name: "Jenkins", Icon: SiJenkins, color: "#D24939" },
-    ],
-  },
-  {
-    label: "DATABASES",
-    items: [
-      { name: "MySQL", Icon: SiMysql, color: "#4479A1" },
-      { name: "PostgreSQL", Icon: SiPostgresql, color: "#336791" },
-      { name: "MongoDB", Icon: SiMongodb, color: "#47A248" },
-      { name: "Redis", Icon: SiRedis, color: "#DC382D" },
-      { name: "Prisma", Icon: SiPrisma, color: "#E5E7EB" },
-    ],
-  },
-  {
-    label: "TESTING",
-    items: [
-      { name: "Jest", Icon: SiJest, color: "#C21325" },
-    ],
-  },
-  {
-    label: "TOOLS",
-    items: [
-      { name: "Postman", Icon: SiPostman, color: "#FF6C37" },
-      { name: "Git", Icon: SiGit, color: "#F05032" },
-      { name: "Jira", Icon: SiJira, color: "#0052CC" },
-    ],
-  },
-]
-
-
-/* ================= ANIMATION VARIANTS ================= */
+import { groups } from "../utils/constants"
 
 const container = {
   hidden: {},
@@ -108,8 +17,6 @@ const item = {
     transition: { duration: 0.45, ease: "easeOut" },
   },
 }
-
-/* ================= STACK ROW ================= */
 
 function StackRow({ label, items }) {
   const ref = useRef(null)
@@ -162,8 +69,6 @@ function StackRow({ label, items }) {
     </div>
   )
 }
-
-/* ================= MAIN ABOUT SECTION ================= */
 
 export default function About() {
   return (

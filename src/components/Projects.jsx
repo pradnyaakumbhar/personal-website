@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-// import { textVariant } from '../utils/motion';
 import { CiCircleCheck } from 'react-icons/ci';
 import { GoArrowUpRight } from 'react-icons/go';
 import grainImage from '../assets/grain.jpg';

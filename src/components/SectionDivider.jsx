@@ -1,18 +1,3 @@
-// const SectionDivider = () => {
-//   return (
-//     <div className="bg-gray-100">
-//       <div
-//         className="h-16 bg-black mt-10"
-//         style={{
-//           clipPath:
-//             "polygon(0 0, 100% 0, 100% 30%, 80% 30%, 80% 45%, 60% 45%, 60% 60%, 40% 60%, 40% 75%, 20% 75%, 20% 90%, 0 90%)",
-//         }}
-//       />
-//     </div>
-//   )
-// }
-
-// export default SectionDivider
 import { useRef } from "react"
 import { motion, useInView } from "framer-motion"
 
