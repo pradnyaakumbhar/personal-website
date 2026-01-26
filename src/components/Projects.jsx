@@ -31,7 +31,7 @@ const Projects = () => {
       <div className="max-w-6xl mx-auto text-gray-900">
         <motion.div variants={textVariant()}>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-14">
-            Projects
+          Things I&apos;ve Built
           </h2>
         </motion.div>
         <div className="mt-10 md:mt-20 flex flex-col gap-20">
@@ -90,19 +90,6 @@ const Projects = () => {
                           <GoArrowUpRight className="size-4" />
                         </button>
                       </a>
-                      {project.github_url2 && (
-                        <a
-                          href={project.github_url}
-                          className="flex-1"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <button className="bg-black text-gray-100 border border-gray-700 h-12 w-full rounded-xl font-semibold inline-flex items-center justify-center gap-2">
-                            <span>View Github </span>{' '}
-                            <GoArrowUpRight className="size-4" />
-                          </button>
-                        </a>
-                      )}
                     </div>
                     <div className="mt-8">
                       <h4 className="text-sm uppercase tracking-[0.2em] text-gray-400">

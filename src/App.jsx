@@ -21,7 +21,7 @@ function App() {
       <SectionDivider />
       <Experience />
       <Projects />
-      {/* <Contact /> */}
+      <Contact />
     </div>
   )
 }

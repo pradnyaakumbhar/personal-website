@@ -77,7 +77,7 @@ const Navbar = () => {
           <div className='items-start'>
           <p className="text-xs text-gray-400 uppercase tracking-widest mb-2">Email Address</p>
           <a
-            href="mailto:your.email@example.com"
+            href="mailto:kumbharpradnyaa10@gmail.com"
             className="text-base text-gray-800 hover:text-gray-600 transition-colors block mb-6"
             target="_blank"
             rel="noopener noreferrer"
@@ -91,9 +91,9 @@ const Navbar = () => {
             <a href="https://github.com/pradnyaakumbhar" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-600 transition-colors">
               Github
             </a>
-            {/* <a href="https://x.com/pradnyaakumbhar" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-600 transition-colors">
+            <a href="https://x.com/" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-600 transition-colors">
               X
-            </a> */}
+            </a>
           </div>
           </div>
           

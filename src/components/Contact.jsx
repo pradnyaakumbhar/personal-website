@@ -1,94 +1,353 @@
-const Contact = () => {
+import React, { useRef, useState } from "react"
+import {
+  FaGithub,
+  FaXTwitter,
+  FaLinkedinIn,
+  FaDiscord,
+} from "react-icons/fa6"
+import { FiMail } from "react-icons/fi"
+
+function CopyButton({
+  toCopy,
+  className = "",
+  children,
+  label = "Copy to clipboard",
+  copiedText = "Copied!",
+  onCopied,
+}) {
+  const [copied, setCopied] = useState(false)
+
+  const onCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(toCopy)
+      setCopied(true)
+      if (onCopied) onCopied(copiedText)
+      window.setTimeout(() => setCopied(false), 1200)
+    } catch (e) {
+      // fallback
+      const ta = document.createElement("textarea")
+      ta.value = toCopy
+      document.body.appendChild(ta)
+      ta.select()
+      document.execCommand("copy")
+      document.body.removeChild(ta)
+      setCopied(true)
+      if (onCopied) onCopied(copiedText)
+      window.setTimeout(() => setCopied(false), 1200)
+    }
+  }
+
   return (
-    <section id="contact" className="min-h-screen bg-purple-50 py-20 px-4 relative z-20">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-5xl font-bold text-black mb-12 text-center">Get In Touch</h2>
-
-        <div className="bg-gray-50 rounded-3xl p-8 md:p-12">
-          <p className="text-center text-gray-600 text-lg mb-8">
-            I'd love to hear from you! Whether you have a question or just want to say hi,
-            feel free to reach out.
-          </p>
-
-          <form className="space-y-6">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors"
-                placeholder="Your name"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors"
-                placeholder="your.email@example.com"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                Message
-              </label>
-              <textarea
-                id="message"
-                rows={6}
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-blue-500 focus:outline-none transition-colors resize-none"
-                placeholder="Your message..."
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-4 rounded-xl transition-colors"
-            >
-              Send Message
-            </button>
-          </form>
-
-          <div className="mt-12 flex justify-center gap-6">
-            <a
-              href="#"
-              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-600 hover:text-blue-500 transition-colors shadow-md"
-            >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-            </a>
-            <a
-              href="#"
-              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-600 hover:text-blue-500 transition-colors shadow-md"
-            >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-              </svg>
-            </a>
-            <a
-              href="#"
-              className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-600 hover:text-blue-500 transition-colors shadow-md"
-            >
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-
-        <footer className="mt-12 text-center text-gray-500 text-sm">
-          <p>&copy; 2024 Pradnya. All rights reserved.</p>
-        </footer>
-      </div>
-    </section>
+    <button
+      type="button"
+      onClick={onCopy}
+      className={className}
+      title={copied ? copiedText : label}
+      aria-label={label}
+    >
+      {children}
+    </button>
   )
 }
 
-export default Contact
+export default function Contact() {
+  const [toast, setToast] = useState("")
+  const toastTimerRef = useRef(null)
+  const links = {
+    github: "https://github.com/pradnyaakumbhar",
+    twitter: "https://twitter.com/",
+    linkedin: "https://www.linkedin.com/in/pradnya-kumbhar/",
+    email: "kumbharpradnyaa10@gmail.com",
+  }
+
+  const showToast = (message) => {
+    setToast(message)
+    if (toastTimerRef.current) {
+      window.clearTimeout(toastTimerRef.current)
+    }
+    toastTimerRef.current = window.setTimeout(() => setToast(""), 1600)
+  }
+
+  return (
+    <section id="contact" className="relative w-full bg-gray-100 py-20">
+      <div className="mx-auto w-full max-w-6xl px-4">
+        {toast && (
+          <div className="fixed right-6 bottom-6 z-50 rounded-full bg-gray-900 px-4 py-2 text-sm text-white shadow-lg">
+            {toast}
+          </div>
+        )}
+        <div className="grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-start">
+          <div>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+              Get In Touch
+            </h2>
+            <p className="mt-4 text-lg text-gray-600">
+              Let&apos;s build next resilient system together.
+            </p>
+
+            <div className="mt-10 max-w-lg space-y-6">
+              <div className="rounded-3xl border border-gray-300 bg-gray-900 px-6 py-5 text-gray-100 shadow-[0_18px_40px_rgba(15,23,42,0.2)]">
+                <p className="text-xs uppercase tracking-[0.4em] text-gray-400">
+                  Email
+                </p>
+                <p className="mt-3 text-xl font-semibold">{links.email}</p>
+              </div>
+
+              <div className="rounded-3xl border border-gray-300 bg-gray-900 px-6 py-5 text-gray-100 shadow-[0_18px_40px_rgba(15,23,42,0.2)]">
+                <p className="text-xs uppercase tracking-[0.4em] text-gray-400">
+                  Location
+                </p>
+                <p className="mt-3 text-xl font-semibold">
+                  Remote · Pune, India
+                </p>
+              </div>
+
+              <div className="rounded-3xl border border-gray-300 bg-gray-900 px-6 py-5 text-gray-100 shadow-[0_18px_40px_rgba(15,23,42,0.2)]">
+                <p className="text-xs uppercase tracking-[0.4em] text-gray-400">
+                  Availability
+                </p>
+                <p className="mt-3 text-xl font-semibold">
+                  Open to Backend, DevOps / platform roles & collaborations.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* galaxy */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="galaxy mt-4 lg:mt-0 galaxy--lg">
+              {/* ORBIT 1 */}
+              <div className="orbit orbit-1">
+                <span className="circle" />
+
+                <a
+                  className="icon icon-1"
+                  href={links.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  title="GitHub"
+                >
+                  <span className="icon-shell">
+                    <FaGithub className="icon-svg" aria-hidden="true" />
+                  </span>
+                </a>
+
+                <a
+                  className="icon icon-2"
+                  href={links.twitter}
+                  target="_blank"
+                  rel="noreferrer"
+                  title="X"
+                >
+                  <span className="icon-shell">
+                    <FaXTwitter className="icon-svg" aria-hidden="true" />
+                  </span>
+                </a>
+
+                <a
+                  className="icon icon-3 icon-mail"
+                  href={`mailto:${links.email}`}
+                  title="Email"
+                >
+                  <span className="icon-shell">
+                    <FiMail className="icon-svg" aria-hidden="true" />
+                  </span>
+                </a>
+              </div>
+
+              {/* ORBIT 2 */}
+              <div className="orbit orbit-2">
+                <span className="circle" />
+
+                <a
+                  className="icon icon-1"
+                  href={links.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  title="LinkedIn"
+                >
+                  <span className="icon-shell">
+                    <FaLinkedinIn className="icon-svg" aria-hidden="true" />
+                  </span>
+                </a>
+
+                <CopyButton
+                  className="icon icon-2 icon-discord"
+                  toCopy="pradnya_kumbhar"
+                  label="Copy Discord username"
+                  copiedText="Discord username copied"
+                  onCopied={showToast}
+                >
+                  <span className="icon-shell" title="Discord">
+                    <FaDiscord className="icon-svg" aria-hidden="true" />
+                  </span>
+                </CopyButton>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* styles (same as vue, translated) */}
+      <style>{`
+        @keyframes rotate {
+          from { rotate: 0deg; }
+          to { rotate: 360deg; }
+        }
+        @keyframes anti-rotate {
+          from { rotate: 0deg; }
+          to { rotate: -360deg; }
+        }
+
+        .galaxy{
+          width: min(calc(100% - 2rem), 40rem);
+          aspect-ratio: 1 / 1;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          pointer-events: none;
+        }
+        .galaxy--lg{
+          width: min(calc(100% - 2rem), 46rem);
+        }
+
+        .galaxy .orbit{
+          aspect-ratio: 1 / 1;
+          position: absolute;
+          animation: rotate linear infinite;
+        }
+
+        .galaxy .icon{
+          position: absolute;
+          translate: -50% -50%;
+          z-index: 1;
+          pointer-events: all;
+          animation: anti-rotate linear infinite;
+          transition: scale 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .galaxy .icon:hover{ scale: 0.9; }
+        .galaxy .icon-discord{
+          animation-name: anti-rotate;
+        }
+
+        .galaxy .icon-mail .icon-svg{
+          transform: rotate(-75deg);
+        }
+
+        .galaxy .icon-shell{
+          width: 3.25rem;
+          height: 3.25rem;
+          border-radius: 9999px;
+          background: #ffffff;
+          border: 1px solid #e5e7eb;
+          display: grid;
+          place-items: center;
+          box-shadow: 0 10px 20px rgba(15, 23, 42, 0.12);
+        }
+        @media (min-width: 1024px){
+          .galaxy .icon-shell{ width: 4rem; height: 4rem; }
+        }
+        .galaxy .icon-svg{
+          width: 1.5rem;
+          height: 1.5rem;
+          color: #111827;
+          pointer-events: none;
+        }
+        @media (min-width: 1024px){
+          .galaxy .icon-svg{ width: 1.8rem; height: 1.8rem; }
+        }
+
+        /* ----- ORBIT 1 ----- */
+        .orbit-1{
+          width: 100%;
+        }
+        .orbit-1, .orbit-1 .icon{
+          animation-duration: 100s !important;
+        }
+
+        /* dashed circle look using mask + conic gradient */
+        .orbit-1 .circle{
+          position:absolute;
+          inset:0;
+          border-radius:9999px;
+          background:
+            conic-gradient(
+              #9ca3af,
+              transparent,
+              transparent,
+              #6b7280,
+              transparent,
+              #9ca3af,
+              transparent,
+              #9ca3af
+            );
+          /* make it a thin ring */
+          -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+                  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+          /* convert ring into dashed segments */
+          -webkit-mask-composite: source-in;
+                  mask-composite: intersect;
+          opacity: 0.7;
+          filter: drop-shadow(0 0 6px rgba(15,23,42,0.08));
+        }
+        /* dashed effect (overlay) */
+        .orbit-1 .circle::after{
+          content:"";
+          position:absolute;
+          inset:0;
+          border-radius:9999px;
+          border:2px dashed rgba(15,23,42,0.12);
+          opacity:0.7;
+        }
+
+        .orbit-1 .icon-1{ top: 6%; left: 26%; }
+        .orbit-1 .icon-2{ top: 80%; left: 89%; }
+        .orbit-1 .icon-3{ top: 66%; left: 3%; }
+
+        /* ----- ORBIT 2 ----- */
+        .orbit-2{
+          width: calc(50% + 2rem);
+        }
+        @media (min-width: 1024px){
+          .orbit-2{ width: calc(50% + 4rem); }
+        }
+        .orbit-2, .orbit-2 .icon{
+          animation-duration: 60s !important;
+        }
+
+        .orbit-2 .circle{
+          position:absolute;
+          inset:0;
+          border-radius:9999px;
+          background:
+            conic-gradient(
+              #9ca3af,
+              transparent,
+              #6b7280,
+              #6b7280,
+              transparent,
+              transparent,
+              #9ca3af,
+              #9ca3af
+            );
+          -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+                  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+          opacity: 0.7;
+          filter: drop-shadow(0 0 6px rgba(15,23,42,0.08));
+        }
+        .orbit-2 .circle::after{
+          content:"";
+          position:absolute;
+          inset:0;
+          border-radius:9999px;
+          border:2px dashed rgba(15,23,42,0.10);
+          opacity:0.65;
+        }
+
+        .orbit-2 .icon-1{ top: 3%; left: 65%; }
+        .orbit-2 .icon-2{ top: 99%; left: 54%; }
+      `}</style>
+    </section>
+  )
+}

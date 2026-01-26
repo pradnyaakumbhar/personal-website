@@ -48,7 +48,7 @@ const Experience = () => {
     >
       <div className="max-w-6xl mx-auto">
         <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-14">
-          Experience
+        Where I&apos;ve Worked
         </h2>
 
         <div className="relative" ref={lineWrapRef}>
