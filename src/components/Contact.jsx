@@ -224,10 +224,6 @@ export default function Contact() {
           animation-name: anti-rotate;
         }
 
-        .galaxy .icon-mail .icon-svg{
-          transform: rotate(-75deg);
-        }
-
         .galaxy .icon-shell{
           width: 3.25rem;
           height: 3.25rem;
