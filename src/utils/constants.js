@@ -62,10 +62,11 @@ export const experiences = [
     location: 'Remote',
     period: 'Dec 2025 – Present',
     achievements: [
+      'Built tax calculation connectors for Shopware and Rillet, automating tax calculation across e-commerce and accounting workflows.',
+      'Handled end-to-end deployment of the connectors to UAT and production using CI/CD pipelines, Terraform and AWS ECS.',
       'Built and deployed a Python-based log analysis system on AWS Lambda, automating monthly user reports using Terraform-managed infrastructure.',
-      'Deployed a containerized service to dev using Docker, setting up a CI/CD pipeline to enable automated builds, testing, and deployments.',
     ],
-    stack: ['.NET', 'C#', 'AWS', 'Docker', 'Terraform', 'GitHub Actions', 'Python'],
+    stack: ['.NET', 'C#', 'AWS', 'ECS', 'Docker', 'Terraform', 'GitHub Actions', 'Python'],
     logo: indiseaLogo,
   },
   {
