@@ -8,7 +8,7 @@ import taskTracker from '../assets/projects/taskTracker.jpeg';
 export const links = {
   github: 'https://github.com/pradnyaakumbhar',
   linkedin: 'https://www.linkedin.com/in/pradnya-kumbhar/',
-  email: 'kumbharpradnyaa10@gmail.com',
+  email: 'pradnyakumbhar.dev@gmail.com',
 };
 
 export const navLinks = [
