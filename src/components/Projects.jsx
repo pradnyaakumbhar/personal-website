@@ -1,127 +1,94 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { CiCircleCheck } from 'react-icons/ci';
-import { GoArrowUpRight } from 'react-icons/go';
-import grainImage from '../assets/grain.jpg';
+import { useId } from 'react';
 import { projects } from '../utils/constants';
+import { ArrowUpRight, CheckCircle } from './Icons';
+import { Reveal } from './Reveal';
 
-export const textVariant = (delay) => {
-  return {
-    hidden: {
-      y: -50,
-      opacity: 0,
-    },
-    show: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        duration: 1.25,
-        delay: delay,
-      },
-    },
-  };
-};
-
-
-const Projects = () => {
+// Faint film grain over each card, drawn in SVG so it needs no image file.
+const Grain = () => {
+  const id = useId();
   return (
-    <section className="pb-16 lg:py-24 px-4 bg-gray-100" id="projects">
-      <div className="max-w-6xl mx-auto text-gray-900">
-        <motion.div variants={textVariant()}>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-14">
-          Things I&apos;ve Built
-          </h2>
-        </motion.div>
-        <div className="mt-10 md:mt-20 flex flex-col gap-20">
-          {projects.map((project, index) => (
-            <div
-              key={project.title}
-              className="sticky top-16"
-              style={{ top: `calc(100px + ${index * 25}px)` }}
-            >
-              <div className="bg-gray-900 rounded-t-[48px] rounded-b-[24px] relative z-0 overflow-hidden after:z-10 after:content-[''] after:absolute after:inset-0 after:outline-2 after:outline-offset-2 after:rounded-t-[48px] after:rounded-b-[24px] after:outline-gray-800 px-8 pt-8 pb-0 border border-gray-800 md:pt-12 md:px-10 lg:pt-16 lg:px-20 after:pointer-events-none">
-                <div
-                  className="absolute inset-0 -z-10 opacity-[0.06]"
-                  style={{ backgroundImage: `url(${grainImage})` }}
-                ></div>
-                <div className="lg:grid lg:grid-cols-2 lg:gap-16">
-                  <div className="lg:pb-12">
-                    <h3 className="inline-flex font-bold uppercase tracking-widest text-2xl md:text-4xl text-gray-100">
-                      {project.title}
-                    </h3>
-
-                    <p className="text-lg text-gray-300 mt-2 md:mt-5">
-                      {project.desc}
-                    </p>
-                    <hr className="border-t-2 border-gray-800 mt-4 md:mt-5" />
-                    <ul className="flex flex-col gap-4 mt-4 md:mt-5">
-                      {project.points.map((point, index) => (
-                        <li
-                          key={index}
-                          className="flex gap-2 text-sm md:text-base text-gray-300"
-                        >
-                          <CiCircleCheck className="size-5 md:size-6" />
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="flex my-8 gap-4 w-full">
-                      <a
-                        href={project.live_url}
-                        className="flex-1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <button className="bg-white text-gray-900 h-12 w-full rounded-xl font-semibold inline-flex items-center justify-center gap-2">
-                          <span>Visit Live Site</span>
-                          <GoArrowUpRight className="size-4" />
-                        </button>
-                      </a>
-                      <a
-                        href={project.github_url}
-                        className="flex-1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <button className="bg-black text-gray-100 border border-gray-700 h-12 w-full rounded-xl font-semibold inline-flex items-center justify-center gap-2">
-                          <span>View Github</span>{' '}
-                          <GoArrowUpRight className="size-4" />
-                        </button>
-                      </a>
-                    </div>
-                    <div className="mt-8">
-                      <h4 className="text-sm uppercase tracking-[0.2em] text-gray-400">
-                        Tech Stack
-                      </h4>
-                      <ul className="mt-4 flex flex-wrap gap-2">
-                        {project.techStack.map((tech) => (
-                          <li
-                            key={tech}
-                            className="rounded-full border border-gray-700 px-3 py-1 text-sm text-gray-200"
-                          >
-                            {tech}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="relative">
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="mt-8 -mb-4 md:-mb-0 lg:mt-0 lg:absolute lg:h-full lg:w-auto lg:max-w-none rounded-t-3xl"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      {/* </div> */}
-    </section>
+    <svg aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 size-full opacity-[0.06]">
+      <filter id={id}>
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
+      </filter>
+      <rect width="100%" height="100%" filter={`url(#${id})`} />
+    </svg>
   );
 };
+
+const Projects = () => (
+  <section id="work" className="px-4 py-16 md:py-24">
+    <div className="mx-auto max-w-[1152px]">
+      <Reveal as="h2" className="font-display text-4xl leading-none font-bold tracking-[-0.03em] md:text-[clamp(36px,4.4vw,52px)]">
+        Things I&apos;ve Built
+      </Reveal>
+
+      <div className="mt-10 flex flex-col gap-20 md:mt-20">
+        {projects.map((project, index) => (
+          <div key={project.title} className="sticky" style={{ top: `calc(100px + ${index * 25}px)` }}>
+            <Reveal as="article" className="relative isolate overflow-hidden rounded-t-[48px] rounded-b-[24px] border border-night-line bg-ink px-8 pt-8 outline-2 -outline-offset-[6px] outline-night-line md:px-10 md:pt-12 lg:px-20 lg:pt-16">
+              <Grain />
+              <div className="lg:grid lg:grid-cols-2 lg:gap-16">
+                <div className="lg:pb-12">
+                  <h3 className="text-2xl font-bold tracking-[0.1em] text-cream uppercase md:text-4xl">{project.title}</h3>
+                  <p className="mt-2 text-lg text-cream-dim md:mt-5">{project.desc}</p>
+                  <hr className="mt-4 border-t-2 border-night-line md:mt-5" />
+
+                  <ul className="mt-4 flex flex-col gap-4 md:mt-5">
+                    {project.points.map((point) => (
+                      <li key={point} className="flex gap-2 text-sm leading-[1.5] text-cream-dim md:text-base">
+                        <CheckCircle className="size-5 shrink-0 md:size-6" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <div className="my-8 flex gap-4">
+                    {project.live_url && (
+                      <a
+                        href={project.live_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-cream text-sm font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5 hover:text-ink md:text-base"
+                      >
+                        Visit Live Site <ArrowUpRight size={16} />
+                      </a>
+                    )}
+                    <a
+                      href={project.github_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-night-border text-sm font-semibold text-cream transition-colors duration-200 hover:border-cream-muted md:text-base"
+                    >
+                      View Github <ArrowUpRight size={16} />
+                    </a>
+                  </div>
+
+                  <h4 className="mt-8 text-sm font-medium tracking-[0.2em] text-cream-muted uppercase">Tech Stack</h4>
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {project.techStack.map((tech) => (
+                      <li key={tech} className="rounded-full border border-night-border px-3 py-1 text-sm text-[#E4E1DA]">
+                        {tech}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="relative">
+                  <img
+                    src={project.image}
+                    alt={`Screenshot of ${project.title}`}
+                    loading="lazy"
+                    className="mt-8 -mb-4 block w-full rounded-t-3xl md:mb-0 lg:absolute lg:top-0 lg:left-0 lg:mt-0 lg:h-full lg:w-auto lg:max-w-none"
+                  />
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default Projects;

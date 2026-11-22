@@ -1,7 +1,67 @@
 @import "tailwindcss";
 
-@keyframes floatSoft {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
+/* Paper & Ink — tokens from the design canvas */
+@theme {
+  --color-paper: #ECEAE4;
+  --color-paper-raised: #FAF9F6;
+  --color-paper-line: #CFCCC3;
+  --color-paper-border: #DEDBD3;
+  --color-chip: #F1EFE9;
+  --color-ink: #121212;
+  --color-ink-soft: #3D3C39;
+  --color-ink-body: #55524C;
+  --color-muted: #6B6964;
+  --color-muted-2: #77746D;
+  --color-cream: #F1EFE9;
+  --color-cream-dim: #C9C6BE;
+  --color-cream-muted: #A9A69E;
+  --color-night-line: #2E2E2C;
+  --color-night-border: #3A3936;
+  --color-pen: #3535E8;
+  --color-pen-soft: #8F8FF7;
+
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat", cursive;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
   }
-  
+
+  body {
+    margin: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-pen);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-pen);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

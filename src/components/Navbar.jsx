@@ -1,119 +1,116 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react';
+import { links, navLinks } from '../utils/constants';
+import { ArrowUpRight, Close, Menu } from './Icons';
+
+// Tracks which section is on screen so the matching nav link is highlighted.
+function useActiveSection(ids) {
+  const [active, setActive] = useState(null);
+
+  useEffect(() => {
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean);
+    if (!els.length) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    els.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [ids]);
+
+  return active;
+}
+
+const sectionIds = navLinks.map((l) => l.id);
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const active = useActiveSection(sectionIds);
+  const [open, setOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsOpen(!isOpen)
-  }
-
-  const handleNavClick = (event, href) => {
-    event.preventDefault()
-    toggleMenu()
-
-    if (href === '#home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-      return
-    }
-
-    const target = document.querySelector(href)
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-  }
-
-  const navItems = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' }
-  ]
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (e) => e.key === 'Escape' && setOpen(false);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
 
   return (
-    <>
-      {/* Navigation Background Circle */}
-      <div
-        className={`fixed bg-gray-100 rounded-full transition-transform duration-700 ease-in-out z-[9998] ${isOpen ? 'scale-100' : 'scale-0'}`}
-        style={{
-          top: '2rem',
-          right: '2rem',
-          width: '5rem',
-          height: '5rem',
-          transformOrigin: 'center',
-          transform: isOpen ? 'translate(50%, -50%) scale(40)' : 'translate(50%, -50%) scale(0)'
-        }}
-      />
+    <div className="sticky top-0 z-50 flex justify-center px-4 pt-4">
+      <nav
+        aria-label="Primary"
+        className="relative w-full max-w-[560px] rounded-full bg-ink text-cream shadow-[0_10px_30px_-12px_rgba(18,18,18,0.55)]"
+      >
+        <div className="flex items-center justify-between gap-2 py-1.5 pr-1.5 pl-5">
+          <a href="#top" className="font-display text-[17px] font-semibold text-cream">
+            Pradnya<span className="text-pen-soft">.</span>
+          </a>
 
-      {/* Navigation Menu */}
-      <nav className={`fixed inset-0 z-[9999] flex flex-col justify-between p-16 transition-opacity duration-500 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        {/* Navigation Links - positioned slightly right of center */}
-        <div className="flex-1 flex items-center justify-center">
-          <ul className="flex flex-col items-start space-y-3 ml-24">
-            {navItems.map((item, index) => (
-              <li
-                key={item.name}
-                className={`transform transition-all duration-800 ${isOpen ? 'translate-x-0 opacity-100' : 'translate-x-[100vw] opacity-0'}`}
-                style={{
-                  transitionDelay: '200ms',
-                  transitionTimingFunction: isOpen ? 'cubic-bezier(0.34, 1.56, 0.64, 1)' : 'ease-in'
-                }}
-              >
+          <ul className="hidden items-center gap-1 text-[13px] sm:flex">
+            {navLinks.map((link) => {
+              const isActive = active === link.id;
+              return (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    aria-current={isActive ? 'true' : undefined}
+                    className={`block rounded-full px-3 py-1.5 transition-colors duration-200 ${
+                      isActive ? 'bg-white/10 text-cream' : 'text-cream-muted hover:text-cream'
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="flex items-center gap-0.5">
+            <a
+              href={`mailto:${links.email}`}
+              className="inline-flex items-center gap-1 rounded-full bg-cream px-3.5 py-2.5 text-[13px] font-medium text-ink transition-transform duration-200 hover:-translate-y-px active:translate-y-0"
+            >
+              Email me <ArrowUpRight size={13} className="hidden sm:block" />
+            </a>
+            <button
+              type="button"
+              aria-label={open ? 'Close menu' : 'Open menu'}
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              onClick={() => setOpen((v) => !v)}
+              className="grid size-11 place-items-center rounded-full text-cream sm:hidden"
+            >
+              {open ? <Close /> : <Menu />}
+            </button>
+          </div>
+        </div>
+
+        {open && (
+          <ul
+            id="mobile-menu"
+            className="absolute inset-x-0 top-[calc(100%+8px)] flex flex-col gap-1 rounded-3xl bg-ink p-2 text-[15px] shadow-[0_18px_40px_-16px_rgba(18,18,18,0.6)] sm:hidden"
+          >
+            {navLinks.map((link) => (
+              <li key={link.id}>
                 <a
-                  href={item.href}
-                  onClick={(event) => handleNavClick(event, item.href)}
-                  className="text-5xl md:text-7xl font-bold text-gray-800 transition-colors duration-300 inline-block relative group uppercase"
+                  href={`#${link.id}`}
+                  onClick={() => setOpen(false)}
+                  className={`block rounded-2xl px-4 py-3 ${
+                    active === link.id ? 'bg-white/10 text-cream' : 'text-cream-muted'
+                  }`}
                 >
-                  {item.name}
-                  <span className="absolute left-0 bottom-0 w-0 h-1 bg-gray-800 transition-all duration-300 group-hover:w-full"></span>
+                  {link.label}
                 </a>
               </li>
             ))}
           </ul>
-        </div>
-
-        {/* Email and Social Links */}
-        <div className={`mr-16 flex flex-col items-center justify-center transform transition-all duration-800 delay-300 ${isOpen ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-          <div className='items-start'>
-          <p className="text-xs text-gray-400 uppercase tracking-widest mb-2">Email Address</p>
-          <a
-            href="mailto:kumbharpradnyaa10@gmail.com"
-            className="text-base text-gray-800 hover:text-gray-600 transition-colors block mb-6"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            kumbharpradnyaa@example.com
-          </a>
-          <div className="flex gap-6 text-sm">
-            <a href="https://www.linkedin.com/in/pradnya-kumbhar/" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-600 transition-colors">
-              LinkedIn
-            </a>
-            <a href="https://github.com/pradnyaakumbhar" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-600 transition-colors">
-              Github
-            </a>
-            <a href="https://x.com/" target="_blank" rel="noopener noreferrer" className="text-gray-800 hover:text-gray-600 transition-colors">
-              X
-            </a>
-          </div>
-          </div>
-          
-        </div>
+        )}
       </nav>
+    </div>
+  );
+};
 
-      {/* Menu Button */}
-      <button
-        onClick={toggleMenu}
-        className="fixed top-8 right-8 w-16 h-16 bg-gray-800 rounded-full z-[10000] flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
-        aria-label="Toggle menu"
-      >
-        <div className="relative w-6 h-5 flex flex-col justify-between">
-          <span className={`block h-0.5 w-full bg-white rounded-full transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-          <span className={`block h-0.5 w-full bg-white rounded-full transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`}></span>
-          <span className={`block h-0.5 w-full bg-white rounded-full transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-        </div>
-      </button>
-    </>
-  )
-}
-
-export default Navbar
+export default Navbar;
