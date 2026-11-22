@@ -2,8 +2,8 @@ import { motion as Motion, useReducedMotion } from 'framer-motion';
 import { heroFacts, layers, links } from '../utils/constants';
 import { ArrowUpRight } from './Icons';
 import StackDiagram from './StackDiagram';
+import { EASE_OUT as ease } from '../utils/motion';
 
-const ease = [0.16, 1, 0.3, 1];
 
 const Hero = () => {
   const reduce = useReducedMotion();
@@ -39,7 +39,7 @@ const Hero = () => {
           <Motion.div {...rise(0.24)} className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4 md:mt-9">
             <a
               href={`mailto:${links.email}`}
-              className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[15px] font-medium text-cream transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-[15px] font-medium text-cream transition-transform duration-[160ms] ease-out motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 motion-safe:active:scale-[0.97]"
             >
               Get in touch <ArrowUpRight />
             </a>

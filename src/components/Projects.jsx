@@ -49,7 +49,7 @@ const Projects = () => (
                         href={project.live_url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-cream text-sm font-semibold text-ink transition-transform duration-200 hover:-translate-y-0.5 hover:text-ink md:text-base"
+                        className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl bg-cream text-sm font-semibold text-ink transition-transform duration-[160ms] ease-out motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 motion-safe:active:scale-[0.97] hover:text-ink md:text-base"
                       >
                         Visit Live Site <ArrowUpRight size={16} />
                       </a>
@@ -58,7 +58,7 @@ const Projects = () => (
                       href={project.github_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-night-border text-sm font-semibold text-cream transition-colors duration-200 hover:border-cream-muted md:text-base"
+                      className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-xl border border-night-border text-sm font-semibold text-cream transition-[border-color,scale] duration-[160ms] ease-out hover:border-cream-muted motion-safe:active:scale-[0.97] md:text-base"
                     >
                       View Github <ArrowUpRight size={16} />
                     </a>

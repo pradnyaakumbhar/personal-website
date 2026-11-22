@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion as Motion } from 'framer-motion';
 import { links } from '../utils/constants';
+import { EASE_OUT } from '../utils/motion';
 import { ArrowUpRight, Check, Copy } from './Icons';
 import { Reveal } from './Reveal';
 
@@ -61,9 +63,21 @@ const Contact = () => {
               type="button"
               onClick={() => copy('email', links.email)}
               aria-label={copied === 'email' ? 'Email address copied' : 'Copy email address'}
-              className="grid size-11 place-items-center rounded-full border border-night-line text-cream-muted transition-colors duration-200 hover:border-cream-muted hover:text-cream"
+              className="grid size-11 place-items-center rounded-full border border-night-line text-cream-muted transition-[color,border-color,scale] duration-[160ms] ease-out hover:border-cream-muted hover:text-cream motion-safe:active:scale-[0.97]"
             >
-              {copied === 'email' ? <Check /> : <Copy />}
+              {/* Both icons share one grid cell so they crossfade in place */}
+              <AnimatePresence initial={false}>
+                <Motion.span
+                  key={copied === 'email' ? 'check' : 'copy'}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.15, ease: EASE_OUT }}
+                  className="[grid-area:1/1]"
+                >
+                  {copied === 'email' ? <Check /> : <Copy />}
+                </Motion.span>
+              </AnimatePresence>
             </button>
           </div>
 
@@ -93,7 +107,7 @@ const Contact = () => {
               onChange={(e) => setName(e.target.value)}
               autoComplete="name"
               placeholder="What should I call you?"
-              className="border-b border-night-line bg-transparent pb-3 text-base text-cream outline-none placeholder:text-muted-2 focus:border-cream-muted md:text-[17px]"
+              className="border-b border-night-line bg-transparent pb-3 text-base text-cream outline-none transition-colors duration-150 ease-out placeholder:text-muted-2 focus:border-cream-muted md:text-[17px]"
             />
           </label>
           <label className="flex flex-col gap-2">
@@ -104,13 +118,13 @@ const Contact = () => {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="A few lines about the role or project…"
-              className="resize-none border-b border-night-line bg-transparent pb-3 text-base leading-[1.6] text-cream outline-none placeholder:text-muted-2 focus:border-cream-muted md:text-[17px]"
+              className="resize-none border-b border-night-line bg-transparent pb-3 text-base leading-[1.6] text-cream outline-none transition-colors duration-150 ease-out placeholder:text-muted-2 focus:border-cream-muted md:text-[17px]"
             />
           </label>
           <div className="flex flex-wrap items-center gap-4">
             <button
               type="submit"
-              className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-[15px] font-medium text-ink transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
+              className="inline-flex items-center gap-2 rounded-full bg-cream px-6 py-3.5 text-[15px] font-medium text-ink transition-transform duration-[160ms] ease-out motion-safe:hover:-translate-y-0.5 motion-safe:active:translate-y-0 motion-safe:active:scale-[0.97]"
             >
               Write the email <ArrowUpRight />
             </button>

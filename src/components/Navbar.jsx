@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { AnimatePresence, motion as Motion } from 'framer-motion';
 import { links, navLinks } from '../utils/constants';
+import { EASE_IN_OUT, EASE_OUT } from '../utils/motion';
 import { ArrowUpRight, Close, Menu } from './Icons';
 
 // Tracks which section is on screen so the matching nav link is highlighted.
@@ -57,10 +59,18 @@ const Navbar = () => {
                   <a
                     href={`#${link.id}`}
                     aria-current={isActive ? 'true' : undefined}
-                    className={`block rounded-full px-3 py-1.5 transition-colors duration-200 ${
-                      isActive ? 'bg-white/10 text-cream' : 'text-cream-muted hover:text-cream'
+                    className={`relative isolate block rounded-full px-3 py-1.5 ${
+                      isActive ? 'text-cream' : 'text-cream-muted hover:text-cream'
                     }`}
                   >
+                    {/* One pill that slides to whichever section is on screen */}
+                    {isActive && (
+                      <Motion.span
+                        layoutId="nav-active-pill"
+                        className="absolute inset-0 -z-10 rounded-full bg-white/10"
+                        transition={{ duration: 0.25, ease: EASE_IN_OUT }}
+                      />
+                    )}
                     {link.label}
                   </a>
                 </li>
@@ -71,7 +81,7 @@ const Navbar = () => {
           <div className="flex items-center gap-0.5">
             <a
               href={`mailto:${links.email}`}
-              className="inline-flex items-center gap-1 rounded-full bg-cream px-3.5 py-2.5 text-[13px] font-medium text-ink transition-transform duration-200 hover:-translate-y-px active:translate-y-0"
+              className="inline-flex items-center gap-1 rounded-full bg-cream px-3.5 py-2.5 text-[13px] font-medium text-ink transition-transform duration-[160ms] ease-out motion-safe:hover:-translate-y-px motion-safe:active:translate-y-0 motion-safe:active:scale-[0.97]"
             >
               Email me <ArrowUpRight size={13} className="hidden sm:block" />
             </a>
@@ -88,9 +98,16 @@ const Navbar = () => {
           </div>
         </div>
 
+        {/* Scales out of the menu button (top right) and back into it */}
+        <AnimatePresence>
         {open && (
-          <ul
+          <Motion.ul
             id="mobile-menu"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.2, ease: EASE_OUT }}
+            style={{ transformOrigin: 'top right' }}
             className="absolute inset-x-0 top-[calc(100%+8px)] flex flex-col gap-1 rounded-3xl bg-ink p-2 text-[15px] shadow-[0_18px_40px_-16px_rgba(18,18,18,0.6)] sm:hidden"
           >
             {navLinks.map((link) => (
@@ -106,8 +123,9 @@ const Navbar = () => {
                 </a>
               </li>
             ))}
-          </ul>
+          </Motion.ul>
         )}
+        </AnimatePresence>
       </nav>
     </div>
   );

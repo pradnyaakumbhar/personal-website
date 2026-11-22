@@ -23,6 +23,10 @@
   --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
   --font-hand: "Caveat", cursive;
+
+  /* Motion: strong curves (Tailwind's built-in ones are too weak). Mirrored in src/utils/motion.js */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 @layer base {
@@ -50,18 +54,20 @@
     outline-offset: 3px;
     border-radius: 6px;
   }
+
+  /* Hover colour changes fade instead of jumping. Utilities like transition-transform override this. */
+  a,
+  button {
+    transition-property: color, background-color, border-color, text-decoration-color;
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+  }
 }
 
+/* Reduced motion: no movement, but colour and opacity fades stay (they aid comprehension).
+   Button lifts/presses use motion-safe: variants; Motion animations follow MotionConfig reducedMotion="user". */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }
